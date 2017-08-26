@@ -15,7 +15,6 @@
  emacs-lisp-mode "SigmaKEE"
  "Major mode for Sigma Knowledge Engineering Environment.
 \\{sigmakee-mode-map}"
- (setq case-fold-search nil)
  (define-key sigmakee-mode-map (kbd "TAB") 'sigmakee-mode-complete-or-tab)
  (define-key sigmakee-mode-map "\C-csl" 'sigmakee-mode-load-assertion-into-stack)
  (define-key sigmakee-mode-map "\C-csL" 'sigmakee-mode-print-assertion-from-stack)
@@ -72,8 +71,7 @@ considered."
 	(completion (try-completion pattern completions)))
   (cond ((eq completion t))
    ((null completion)
-    (error)
-    ;; (error "Can't find completion for \"%s\"" pattern)
+    (error "Can't find completion for \"%s\"" pattern)
     )
    ((not (string= pattern completion))
     (delete-region beg end)
@@ -85,8 +83,8 @@ considered."
     ;;  (with-output-to-temp-buffer "*Completions*"
     ;;   (display-completion-list list)))
     ;; (message "Making completion list...%s" "done")
-    (let* 
-     ((expansion (completing-read "Term: " 
+    (let*
+     ((expansion (completing-read "Term: "
 		  (all-completions pattern completions) nil nil pattern))
       (regex (concat pattern "\\(.+\\)")))
 
