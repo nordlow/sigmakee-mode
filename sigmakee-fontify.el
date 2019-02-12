@@ -155,7 +155,9 @@
               ;; instances:
               (mapconcat 'identity (list "EnglishLanguage"
                                          "GermanLanguage"
-                                         "FrenchLanguage")
+                                         "FrenchLanguage"
+                                         "SpanishLanguage"
+                                         "RussianLanguage")
                          "\\|")
               "\\)\\b" )
       '(1 font-lock-constant-face nil) )
