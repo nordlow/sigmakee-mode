@@ -131,6 +131,7 @@
               (join "\\|" (list "instance"
                                 "subclass"
                                 "subrelation"
+                                "valence"
                                 "domain"
                                 "domainSubclass"
                                 "range"
@@ -142,7 +143,7 @@
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
-      '(1 'font-lock-function-call-face nil) )
+      '(1 'font-lock-function-name-face nil) )
 
      (list 
       (concat
@@ -169,7 +170,7 @@
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([a-z][a-zA-Z0-9_]+\\)\\b" )
-      '(1 'font-lock-constant-face nil) )
+      '(1 'font-lock-function-call-face nil) )
 
      (list 
       (concat "\\(\\&\\%[_A-Za-z0-9-]+\\)\\b"
