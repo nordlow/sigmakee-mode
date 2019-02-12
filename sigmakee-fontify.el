@@ -149,6 +149,13 @@
               "\\)\\b" )
       '(1 font-lock-keyword-face nil) )
 
+     ;; LOGICAL OPERATOR
+     (list 
+      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
+      (concat "\\(=>\\|<=>\\)")
+      '(1 sigmakee-logical-operator-face nil)
+      )
+
      ;; CONSTANTS
      (list 
       (concat sigmakee-font-lock-prefix "\\("
@@ -161,25 +168,6 @@
                          "\\|")
               "\\)\\b" )
       '(1 font-lock-constant-face nil) )
-
-     ;; LOGICAL OPERATOR
-     (list 
-      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
-      (concat "\\(=>\\|<=>\\)")
-      '(1 sigmakee-logical-operator-face nil)
-      )
-
-     ;; FUNCTION
-     (list 
-      (concat
-       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
-      '(1 'font-lock-function-name-face nil) )
-
-     ;; TYPE
-     (list 
-      (concat
-       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]*\\)\\b" )
-      '(1 font-lock-type-face nil) )
 
      ;; VARIABLE
      (list 
@@ -194,6 +182,18 @@
 	      )
       '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
       )
+
+     ;; FUNCTION
+     (list 
+      (concat
+       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
+      '(1 'font-lock-function-name-face nil) )
+
+     ;; TYPE
+     (list 
+      (concat
+       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]*\\)\\b" )
+      '(1 font-lock-type-face nil) )
 
      ;; NUMBER
      (list 
