@@ -151,6 +151,7 @@
      ;; CONSTANTS
      (list 
       (concat sigmakee-font-lock-prefix "\\("
+              ;; instances:
               (join "\\|" (list "EnglishLanguage"))
               "\\)\\b" )
       '(1 font-lock-constant-face nil) )
