@@ -132,6 +132,7 @@
               (mapconcat 'identity (list "instance"
                                          "subclass"
                                          "subrelation"
+                                         "subProposition"
                                          "disjoint"
                                          "disjointRelation"
                                          "partition"
