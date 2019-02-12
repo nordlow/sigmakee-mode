@@ -129,22 +129,23 @@
      ;; KEYWORD
      (list 
       (concat sigmakee-font-lock-prefix "\\("
-              (join "\\|" (list "instance"
-                                "subclass"
-                                "subrelation"
-                                "disjoint"
-                                "disjointRelation"
-                                "partition"
-                                "subAttribute"
-                                "valence"
-                                "domain"
-                                "domainSubclass"
-                                "range"
-                                "rangeSubclass"
-                                "format"
-                                "termFormat"
-                                "equal"
-                                "documentation"))
+              (mapconcat 'identity (list "instance"
+                                         "subclass"
+                                         "subrelation"
+                                         "disjoint"
+                                         "disjointRelation"
+                                         "partition"
+                                         "subAttribute"
+                                         "valence"
+                                         "domain"
+                                         "domainSubclass"
+                                         "range"
+                                         "rangeSubclass"
+                                         "format"
+                                         "termFormat"
+                                         "equal"
+                                         "documentation")
+                         "\\|")
               "\\)\\b" )
       '(1 font-lock-keyword-face nil) )
 
@@ -152,7 +153,10 @@
      (list 
       (concat sigmakee-font-lock-prefix "\\("
               ;; instances:
-              (join "\\|" (list "EnglishLanguage"))
+              (mapconcat 'identity (list "EnglishLanguage"
+                                         "GermanLanguage"
+                                         "FrenchLanguage")
+                         "\\|")
               "\\)\\b" )
       '(1 font-lock-constant-face nil) )
 
