@@ -123,7 +123,7 @@
       ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
       (concat "\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
 	      )
-      '(1 font-lock-builtin-face nil)
+      '(1 'font-lock-builtin-face nil)
       )
      
      ;; KEYWORD
@@ -142,10 +142,18 @@
                                 "range"
                                 "rangeSubclass"
                                 "format"
+                                "termFormat"
                                 "equal"
                                 "documentation"))
               "\\)\\b" )
       '(1 font-lock-keyword-face nil) )
+
+     ;; CONSTANTS
+     (list 
+      (concat sigmakee-font-lock-prefix "\\("
+              (join "\\|" (list "EnglishLanguage"))
+              "\\)\\b" )
+      '(1 font-lock-constant-face nil) )
 
      ;; LOGICAL OPERATOR
      (list 
