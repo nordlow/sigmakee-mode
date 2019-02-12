@@ -142,6 +142,7 @@
                                 "range"
                                 "rangeSubclass"
                                 "format"
+                                "equal"
                                 "documentation"))
               "\\)\\b" )
       '(1 font-lock-keyword-face nil) )
