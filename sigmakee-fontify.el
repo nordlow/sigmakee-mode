@@ -126,62 +126,76 @@
       '(1 font-lock-builtin-face nil)
       )
      
+     ;; KEYWORD
      (list 
       (concat sigmakee-font-lock-prefix "\\("
               (join "\\|" (list "instance"
                                 "subclass"
                                 "subrelation"
+                                "disjoint"
+                                "disjointRelation"
+                                "partition"
+                                "subAttribute"
                                 "valence"
                                 "domain"
                                 "domainSubclass"
                                 "range"
+                                "rangeSubclass"
                                 "format"
                                 "documentation"))
               "\\)\\b" )
       '(1 font-lock-keyword-face nil) )
 
+     ;; LOGICAL OPERATOR
+     (list 
+      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
+      (concat "\\(=>\\|<=>\\)")
+      '(1 sigmakee-logical-operator-face nil)
+      )
+
+     ;; FUNCTION
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
       '(1 'font-lock-function-name-face nil) )
 
+     ;; TYPE
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]*\\)\\b" )
       '(1 font-lock-type-face nil) )
 
+     ;; VARIABLE
      (list 
       (concat "\\(\\?[_A-Za-z0-9-]+\\)\\b"
 	      )
-      '(1 sigmakee-variable-face nil)
+      '(1 'font-lock-variable-ref-face nil)
       )
 
+     ;; VARIABLE-LIST
      (list 
       (concat "\\(@[_A-Za-z0-9-]+\\)\\b"
 	      )
-      '(1 sigmakee-variable-face nil)   ;TODO use `sigmakee-variable-list-face'
+      '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
       )
 
+     ;; NUMBER
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([0-9]+\\)\\b" )
       '(1 'font-lock-number-face nil) )
 
+     ;; FUNCTION CALL
      (list 
       (concat
        sigmakee-font-lock-prefix "\\([a-z][a-zA-Z0-9_]+\\)\\b" )
       '(1 'font-lock-function-call-face nil) )
 
+     ;; OTHER
      (list 
       (concat "\\(\\&\\%[_A-Za-z0-9-]+\\)\\b"
 	      )
       '(1 sigmakee-other-face nil)
-      )
-
-     (list 
-      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
-      (concat "\\(=>\\|<=>\\)")
-      '(1 sigmakee-logical-operator-face nil)
       )
      
      ;; black for the def parts of PROPERTY DEFINITION
