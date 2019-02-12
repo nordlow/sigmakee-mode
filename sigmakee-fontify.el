@@ -111,8 +111,8 @@
 ;;;================================================================
 ;;; these are the regexp matches for highlighting SigmaKEE 
 
-(defvar sigmakee-font-lock-prefix "\\b")
-(defvar sigmakee-font-lock-keywords
+(defconst sigmakee-font-lock-prefix "\\b")
+(defconst sigmakee-font-lock-keywords
   (let ()
     (list 
 
@@ -123,24 +123,31 @@
       ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
       (concat "\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
 	      )
-      '(1 sigmakee-logical-operator-face nil)
+      '(1 font-lock-builtin-face nil)
       )
      
      (list 
-      (concat sigmakee-font-lock-prefix "\\(" (join "\\|"
-	      sigmakee-mode-main-relation ) "\\)\\b" ) '(1
-	      sigmakee-main-relation-face nil) )
-
-     (list
-      (concat sigmakee-font-lock-prefix "\\(" 
-       (join "\\|"
-	sigmakee-mode-functions-non-relational-instances-and-classes) "\\)\\b")
-      '(1 sigmakee-function-nri-and-class-face nil))
+      (concat sigmakee-font-lock-prefix "\\("
+              (join "\\|" (list "instance"
+                                "subclass"
+                                "subrelation"
+                                "domain"
+                                "domainSubclass"
+                                "range"
+                                "format"
+                                "documentation"))
+              "\\)\\b" )
+      '(1 font-lock-keyword-face nil) )
 
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([_a-zA-Z0-9-]+Fn\\)\\b" )
-       '(1 sigmakee-function-nri-and-class-face nil) )
+       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
+      '(1 'font-lock-function-call-face nil) )
+
+     (list 
+      (concat
+       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]*\\)\\b" )
+      '(1 font-lock-type-face nil) )
 
      (list 
       (concat "\\(\\?[_A-Za-z0-9-]+\\)\\b"
@@ -149,33 +156,39 @@
       )
 
      (list 
+      (concat "\\(@[_A-Za-z0-9-]+\\)\\b"
+	      )
+      '(1 sigmakee-variable-face nil)   ;TODO use `sigmakee-variable-list-face'
+      )
+
+     (list 
+      (concat
+       sigmakee-font-lock-prefix "\\([0-9]+\\)\\b" )
+      '(1 'font-lock-number-face nil) )
+
+     (list 
+      (concat
+       sigmakee-font-lock-prefix "\\([a-z][a-zA-Z0-9_]+\\)\\b" )
+      '(1 'font-lock-constant-face nil) )
+
+     (list 
       (concat "\\(\\&\\%[_A-Za-z0-9-]+\\)\\b"
 	      )
       '(1 sigmakee-other-face nil)
       )
 
      (list 
-      (concat sigmakee-font-lock-prefix "\\(" (join "\\|"
-     	      sigmakee-mode-relations) "\\)\\b" ) '(1
-     	      sigmakee-relation-face nil) )
-
-     (list 
       ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
       (concat "\\(=>\\|<=>\\)")
       '(1 sigmakee-logical-operator-face nil)
       )
-
-     (list 
-      (concat sigmakee-font-lock-prefix "\\(" (join "\\|"
-	      sigmakee-mode-main-keyword ) "\\)\\b" ) '(1
-	      sigmakee-main-keyword-face nil) )
      
      ;; black for the def parts of PROPERTY DEFINITION
      ;; and of TransitiveProperty UnambiguousProperty UniqueProperty
 ;;; END OF LIST ELTS
      ))
 
-    "Additional expressions to highlight in SigmaKEE mode.")
+  "Additional expressions to highlight in SigmaKEE mode.")
 
 
 

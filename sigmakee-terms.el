@@ -3,15 +3,18 @@
 ;; functions, non-relational instances and classes are written with
 ;; initial capital letters.
 
+;;; Code:
+
 (defconst sigmakee-mode-main-relation
- (list
-  "instance"
-  "subclass"
-  "domain"
-  "domainSubclass"
-  "format"
-  "documentation"
-  ))
+  (list
+   "instance"
+   "subclass"
+   "domain"
+   "domainSubclass"
+   "range"
+   "format"
+   "documentation"
+   ))
 
 (defconst sigmakee-mode-main-keyword
  (list
@@ -1196,7 +1199,8 @@
   ))
 
 (defconst sigmakee-mode-all-terms
-  (append sigmakee-mode-main-keyword sigmakee-mode-main-relation
+  (append sigmakee-mode-main-relation
+          sigmakee-mode-main-keyword sigmakee-mode-main-relation
           sigmakee-mode-functions-non-relational-instances-and-classes
           sigmakee-mode-relations
           (list "-1" "<=>" "=>")))
