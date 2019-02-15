@@ -172,14 +172,14 @@
 
      ;; VARIABLE
      (list 
-      (concat "\\(\\?[_A-Za-z0-9-]+\\)\\b"
+      (concat "\\(\\?[_[:upper:][:lower:][:digit:]-]+\\)\\b"
 	      )
       '(1 'font-lock-variable-ref-face nil)
       )
 
      ;; VARIABLE-LIST
      (list 
-      (concat "\\(@[_A-Za-z0-9-]+\\)\\b"
+      (concat "\\(@[_[:upper:][:lower:][:digit:]-]+\\)\\b"
 	      )
       '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
       )
@@ -187,30 +187,30 @@
      ;; FUNCTION
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]+Fn\\)\\b" )
+       sigmakee-font-lock-prefix "\\([[:upper:]][[:lower:]][[:lower:][:upper:][:digit:]]*Fn\\)\\b" )
       '(1 'font-lock-function-name-face nil) )
 
      ;; TYPE
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([A-Z][a-z][a-zA-Z0-9]*\\)\\b" )
+       sigmakee-font-lock-prefix "\\([[:upper:]][[:lower:]][[:lower:][:upper:][:digit:]]*\\)\\b" )
       '(1 font-lock-type-face nil) )
 
      ;; NUMBER
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([0-9]+\\)\\b" )
+       sigmakee-font-lock-prefix "\\([[:digit:]]+\\)\\b" )
       '(1 'font-lock-number-face nil) )
 
      ;; FUNCTION CALL
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([a-z][a-zA-Z0-9_]+\\)\\b" )
+       sigmakee-font-lock-prefix "\\([[:lower:]][[:lower:][:upper:][:digit:]_]+\\)\\b" )
       '(1 'font-lock-function-call-face nil) )
 
      ;; OTHER
      (list 
-      (concat "\\(\\&\\%[_A-Za-z0-9-]+\\)\\b"
+      (concat "\\(\\&\\%[_[:upper:][:lower:][:digit:]-]+\\)\\b"
 	      )
       '(1 sigmakee-other-face nil)
       )
