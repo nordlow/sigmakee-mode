@@ -159,15 +159,7 @@
 
      ;; CONSTANTS
      (list 
-      (concat sigmakee-font-lock-prefix "\\("
-              ;; instances:
-              (mapconcat 'identity (list "EnglishLanguage"
-                                         "GermanLanguage"
-                                         "FrenchLanguage"
-                                         "SpanishLanguage"
-                                         "RussianLanguage")
-                         "\\|")
-              "\\)\\b" )
+      (concat sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
       '(1 font-lock-constant-face nil) )
 
      ;; VARIABLE
