@@ -179,25 +179,25 @@
      ;; FUNCTION
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*Fn\\)\\b" )
+       sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*Fn\\)\\b" )
       '(1 'font-lock-function-name-face nil) )
 
      ;; TYPE
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*\\)\\b" )
+       sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:][:upper:][:digit:]-]*\\)\\b" )
       '(1 font-lock-type-face nil) )
 
      ;; NUMBER
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([[:digit:]]+\\)\\b" )
+       sigmakee-font-lock-prefix "\\b\\([[:digit:]]+\\)\\b" )
       '(1 'font-lock-number-face nil) )
 
      ;; FUNCTION CALL
      (list 
       (concat
-       sigmakee-font-lock-prefix "\\([[:lower:]][[:lower:][:upper:][:digit:]_-]+\\)\\b" )
+       sigmakee-font-lock-prefix "\\b\\([[:lower:]][[:lower:][:upper:][:digit:]_-]+\\)\\b" )
       '(1 'font-lock-function-call-face nil) )
 
      ;; OTHER
