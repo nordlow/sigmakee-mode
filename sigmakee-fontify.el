@@ -158,9 +158,9 @@
       )
 
      ;; CONSTANTS
-     (list 
-      (concat sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
-      '(1 font-lock-constant-face nil) )
+     ;; (list 
+     ;;  (concat sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
+     ;;  '(1 font-lock-constant-face nil) )
 
      ;; VARIABLE
      (list 
