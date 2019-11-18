@@ -153,12 +153,16 @@
 
      ;; PREDICATE DEFINITION
      (list
-      (concat "("
+      (concat "^"
+              "("
               "\\b\\("
               (mapconcat 'identity (list "instance"
                                          "subclass"
                                          "subrelation"
-                                         "subAttribute")
+                                         "documentation"
+                                         "domain"
+                                         "valence"
+                                         "relatedInternalConcept")
                          "\\|")
               "\\)"
               (rx (+ space))
@@ -169,12 +173,16 @@
 
      ;; FUNCTION DEFINITION
      (list
-      (concat "("
+      (concat "^"
+              "("
               "\\b\\("
               (mapconcat 'identity (list "instance"
-                                         "subclass"
                                          "subrelation"
-                                         "subAttribute")
+                                         "documentation"
+                                         "domain"
+                                         "range"
+                                         "rangeSubclass"
+                                         "relatedInternalConcept")
                          "\\|")
               "\\)"
               (rx (+ space))
@@ -185,13 +193,20 @@
 
      ;; TYPE DEFINITION
      (list
-      (concat "("
+      (concat "^"
+              "("
               "\\b\\("
               (mapconcat 'identity (list "subclass"
                                          "instance"
                                          "subrelation"
                                          "subProposition"
-                                         "subAttribute")
+                                         "subAttribute"
+                                         "exhaustiveAttribute"
+                                         "contraryAttribute"
+                                         "exhaustiveDecomposition"
+                                         "disjoint"
+                                         "partition"
+                                         "documentation")
                          "\\|")
               "\\)"
               (rx (+ space))
@@ -199,6 +214,23 @@
               )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil))
+
+     ;; TYPE-TYPE DEFINITION
+     (list
+      (concat "^"
+              "("
+              "\\b\\("
+              (mapconcat 'identity (list "disjoint")
+                         "\\|")
+              "\\)"
+              (rx (+ space))
+              sigmakee-type-regexp
+              (rx (+ space))
+              sigmakee-type-regexp
+              )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-type-definition-face nil)
+      '(3 'font-lock-type-definition-face nil))
 
      ;; LOGICAL OPERATOR
      (list
