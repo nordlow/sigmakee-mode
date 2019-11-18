@@ -217,17 +217,12 @@
 
      ;; TYPE-TYPE DEFINITION
      (list
-      (concat "^"
-              "("
-              "\\b\\("
-              (mapconcat 'identity (list "disjoint")
-                         "\\|")
-              "\\)"
-              (rx (+ space))
-              sigmakee-type-regexp
-              (rx (+ space))
-              sigmakee-type-regexp
-              )
+      (rx bol "(" bow (group (| "disjoint"))
+          (+ space)
+          (regexp sigmakee-type-regexp)
+          (+ space)
+          (regexp sigmakee-type-regexp)
+          )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil)
       '(3 'font-lock-type-definition-face nil))
