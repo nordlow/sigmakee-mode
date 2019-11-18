@@ -153,13 +153,13 @@
 
      ;; PREDICATE DEFINITION
      (list
-      (rx bol "(" bow (group (| "instance"
-                                "subclass"
-                                "subrelation"
-                                "documentation"
-                                "domain"
-                                "valence"
-                                "relatedInternalConcept"))
+      (rx bol "(" (group (| "instance"
+                            "subclass"
+                            "subrelation"
+                            "documentation"
+                            "domain"
+                            "valence"
+                            "relatedInternalConcept"))
           (+ space)
           (regexp sigmakee-predicate-regexp)
           )
@@ -168,13 +168,13 @@
 
      ;; FUNCTION DEFINITION
      (list
-      (rx bol "(" bow (group (| "instance"
-                                "subrelation"
-                                "documentation"
-                                "domain"
-                                "range"
-                                "rangeSubclass"
-                                "relatedInternalConcept"))
+      (rx bol "(" (group (| "instance"
+                            "subrelation"
+                            "documentation"
+                            "domain"
+                            "range"
+                            "rangeSubclass"
+                            "relatedInternalConcept"))
           (+ space)
           (regexp sigmakee-function-regexp)
           )
@@ -183,17 +183,17 @@
 
      ;; TYPE DEFINITION
      (list
-      (rx bol "(" bow (group (| "subclass"
-                                "instance"
-                                "subrelation"
-                                "subProposition"
-                                "subAttribute"
-                                "exhaustiveAttribute"
-                                "contraryAttribute"
-                                "exhaustiveDecomposition"
-                                "disjoint"
-                                "partition"
-                                "documentation"))
+      (rx bol "(" (group (| "subclass"
+                            "instance"
+                            "subrelation"
+                            "subProposition"
+                            "subAttribute"
+                            "exhaustiveAttribute"
+                            "contraryAttribute"
+                            "exhaustiveDecomposition"
+                            "disjoint"
+                            "partition"
+                            "documentation"))
           (+ space)
           (regexp sigmakee-type-regexp)
           )
@@ -202,7 +202,7 @@
 
      ;; TYPE-TYPE DEFINITION
      (list
-      (rx bol "(" bow (group (| "disjoint"))
+      (rx bol "(" (group (| "disjoint"))
           (+ space)
           (regexp sigmakee-type-regexp)
           (+ space)
