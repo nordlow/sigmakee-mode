@@ -111,6 +111,30 @@
 ;;;================================================================
 ;;; these are the regexp matches for highlighting SigmaKEE
 
+(defconst sigmakee-keyword-regexp
+  (rx bow (group (| "and" "or" "not" "exists" "forall")) eow)
+  "SigmaKEE keyword regexp.")
+
+(defconst sigmakee-predicate-regexp
+  (rx bow (group lower (+ (in lower upper digit "-"))) eow)
+  "SigmaKEE predicate regexp.")
+
+(defconst sigmakee-function-regexp
+  (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+  "SigmaKEE function regexp.")
+
+(defconst sigmakee-type-regexp
+  (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+  "SigmaKEE type regexp.")
+
+(defconst sigmakee-variable-regexp
+  (rx (group "?" (+ (in "_" upper lower digit "-"))) eow)
+  "SigmaKEE variable regexp.")
+
+(defconst sigmakee-number-regexp
+  (rx bow (group (+ digit)) eow)
+  "SigmaKEE number regexp.")
+
 (defconst sigmakee-font-lock-keywords
   (let ()
     (list
@@ -118,10 +142,10 @@
      ;; (list
      ;;  "^[^;]*\\(;.*\\)$" '(1 sigmakee-comment-face nil))
 
+     ;; KEYWORDS
      (list
-      "\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
-      '(1 'font-lock-keyword-face nil)
-      )
+      sigmakee-keyword-regexp
+      '(1 'font-lock-keyword-face nil))
 
      ;; PREDICATE DEFINITION
      (list
@@ -134,7 +158,7 @@
                          "\\|")
               "\\)"
               (rx (+ space))
-              (rx bow (group lower (+ (in lower upper digit "-"))) eow)
+              sigmakee-predicate-regexp
               )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-builtin-face nil))
@@ -150,7 +174,7 @@
                          "\\|")
               "\\)"
               (rx (+ space))
-              (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+              sigmakee-function-regexp
               )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-function-name-face nil))
@@ -166,52 +190,47 @@
                          "\\|")
               "\\)"
               (rx (+ space))
-              (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+              sigmakee-type-regexp
               )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil))
 
      ;; LOGICAL OPERATOR
      (list
-      "\\(=>\\|<=>\\)"
+      (rx (group (| "=>" "<=>")))
       '(1 sigmakee-logical-operator-face nil)
       )
 
-     ;; CONSTANTS
-     ;; (list
-     ;;  (concat "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
-     ;;  '(1 font-lock-constant-face nil))
-
      ;; VARIABLE
      (list
-      "\\(\\?[_[:upper:][:lower:][:digit:]-]+\\)\\b"
+      sigmakee-variable-regexp
       '(1 'font-lock-variable-ref-face nil)
       )
 
      ;; VARIABLE-LIST
      (list
       "\\(@[_[:upper:][:lower:][:digit:]-]+\\)\\b"
-      '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
+      '(1 'font-lock-variable-name-face nil) ;TODO use `sigmakee-variable-list-face'
       )
 
      ;; NUMBER
      (list
-      (rx bow (group (+ digit)) eow)
+      sigmakee-number-regexp
       '(1 'font-lock-number-face nil))
 
      ;; FUNCTION CALL
      (list
-      (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+      sigmakee-function-regexp
       '(1 'font-lock-function-call-face nil))
 
      ;; PREDICATE CALL
      (list
-      (rx bow (group lower (+ (in lower upper digit "-"))) eow)
+      sigmakee-predicate-regexp
       '(1 'font-lock-builtin-ref-face nil))
 
      ;; TYPE
      (list
-      (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+      sigmakee-type-regexp
       '(1 font-lock-type-face nil))
 
      ;; OTHER
@@ -227,8 +246,6 @@
      ))
 
   "Additional expressions to highlight in SigmaKEE mode.")
-
-
 
 (put 'sigmakee-mode 'font-lock-defaults '(sigmakee-font-lock-keywords nil nil))
 
