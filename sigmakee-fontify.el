@@ -145,9 +145,9 @@
      ;;                                     "documentation")
      ;;                     "\\|")
      ;;          "\\)\\b" )
-     ;;  '(1 font-lock-keyword-face nil) )
+     ;;  '(1 font-lock-keyword-face nil))
 
-     ;; instance or subclass definition
+     ;; instance or subclass definition of predicate
      (list
       (concat "("
               "\\b\\("
@@ -156,10 +156,24 @@
                          "\\|")
               "\\)"
               (rx (+ space))
-              (rx (group (+ word)))
+              (rx bow (group lower (+ (in lower upper digit "-"))) eow)
               )
       '(1 'font-lock-builtin-ref-face nil)
-      '(2 'font-lock-function-name-face nil))
+      '(2 'font-lock-builtin-face nil)) ;TODO bold append
+
+     ;; instance or subclass definition of function
+     (list
+      (concat "("
+              "\\b\\("
+              (mapconcat 'identity (list "instance"
+                                         "subclass")
+                         "\\|")
+              "\\)"
+              (rx (+ space))
+              (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+              )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-function-name-face nil)) ;TODO bold append
 
      ;; LOGICAL OPERATOR
      (list
@@ -170,7 +184,7 @@
      ;; CONSTANTS
      ;; (list
      ;;  (concat "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
-     ;;  '(1 font-lock-constant-face nil) )
+     ;;  '(1 font-lock-constant-face nil))
 
      ;; VARIABLE
      (list
@@ -184,29 +198,25 @@
       '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
       )
 
-     ;; FUNCTION
-     (list
-      "\\b\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*Fn\\)\\b"
-      '(1 'font-lock-function-call-face nil) )
-
-     ;; TYPE
-     (list
-      (rx bow
-          (group upper
-                 (+ (in lower upper digit "-")))
-          eow)
-      '(1 font-lock-type-face nil) )
-
      ;; NUMBER
      (list
-      (concat
-       "\\b\\([[:digit:]]+\\)\\b" )
-      '(1 'font-lock-number-face nil) )
+      (rx bow (group (+ digit)) eow)
+      '(1 'font-lock-number-face nil))
 
      ;; FUNCTION CALL
      (list
-      "\\b\\([[:lower:]][[:lower:][:upper:][:digit:]_-]+\\)\\b"
-      '(1 'font-lock-function-call-face nil) )
+      (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+      '(1 'font-lock-function-call-face nil))
+
+     ;; PREDICATE CALL
+     (list
+      (rx bow (group lower (+ (in lower upper digit "-"))) eow)
+      '(1 'font-lock-builtin-ref-face nil))
+
+     ;; TYPE
+     (list
+      (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+      '(1 font-lock-type-face nil))
 
      ;; OTHER
      (list
