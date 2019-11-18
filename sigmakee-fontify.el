@@ -153,65 +153,50 @@
 
      ;; PREDICATE DEFINITION
      (list
-      (concat "^"
-              "("
-              "\\b\\("
-              (mapconcat 'identity (list "instance"
-                                         "subclass"
-                                         "subrelation"
-                                         "documentation"
-                                         "domain"
-                                         "valence"
-                                         "relatedInternalConcept")
-                         "\\|")
-              "\\)"
-              (rx (+ space))
-              sigmakee-predicate-regexp
-              )
+      (rx bol "(" bow (group (| "instance"
+                                "subclass"
+                                "subrelation"
+                                "documentation"
+                                "domain"
+                                "valence"
+                                "relatedInternalConcept"))
+          (+ space)
+          (regexp sigmakee-predicate-regexp)
+          )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-builtin-face nil))
 
      ;; FUNCTION DEFINITION
      (list
-      (concat "^"
-              "("
-              "\\b\\("
-              (mapconcat 'identity (list "instance"
-                                         "subrelation"
-                                         "documentation"
-                                         "domain"
-                                         "range"
-                                         "rangeSubclass"
-                                         "relatedInternalConcept")
-                         "\\|")
-              "\\)"
-              (rx (+ space))
-              sigmakee-function-regexp
-              )
+      (rx bol "(" bow (group (| "instance"
+                                "subrelation"
+                                "documentation"
+                                "domain"
+                                "range"
+                                "rangeSubclass"
+                                "relatedInternalConcept"))
+          (+ space)
+          (regexp sigmakee-function-regexp)
+          )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-function-name-face nil))
 
      ;; TYPE DEFINITION
      (list
-      (concat "^"
-              "("
-              "\\b\\("
-              (mapconcat 'identity (list "subclass"
-                                         "instance"
-                                         "subrelation"
-                                         "subProposition"
-                                         "subAttribute"
-                                         "exhaustiveAttribute"
-                                         "contraryAttribute"
-                                         "exhaustiveDecomposition"
-                                         "disjoint"
-                                         "partition"
-                                         "documentation")
-                         "\\|")
-              "\\)"
-              (rx (+ space))
-              sigmakee-type-regexp
-              )
+      (rx bol "(" bow (group (| "subclass"
+                                "instance"
+                                "subrelation"
+                                "subProposition"
+                                "subAttribute"
+                                "exhaustiveAttribute"
+                                "contraryAttribute"
+                                "exhaustiveDecomposition"
+                                "disjoint"
+                                "partition"
+                                "documentation"))
+          (+ space)
+          (regexp sigmakee-type-regexp)
+          )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil))
 
