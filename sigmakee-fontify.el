@@ -218,18 +218,44 @@
       '(2 'font-lock-type-definition-face nil)
       '(3 'font-lock-type-definition-face nil))
 
-     ;; FORMAT DEFINITION
+     ;; FORMAT FUNCTION
      (list
       (rx bol "(" (group (| "format"
                             "termFormat"))
           (+ space)
-          (regexp sigmakee-type-regexp)
+          (regexp sigmakee-symbol-regexp)
+          (+ space)
+          (regexp sigmakee-function-regexp)
+          )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-type-definition-face nil)
+      '(3 'font-lock-function-name-face nil))
+
+     ;; FORMAT TYPE
+     (list
+      (rx bol "(" (group (| "format"
+                            "termFormat"))
           (+ space)
           (regexp sigmakee-symbol-regexp)
+          (+ space)
+          (regexp sigmakee-type-regexp)
           )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil)
       '(3 'font-lock-type-definition-face nil))
+
+     ;; FORMAT PREDICATE
+     (list
+      (rx bol "(" (group (| "format"
+                            "termFormat"))
+          (+ space)
+          (regexp sigmakee-symbol-regexp)
+          (+ space)
+          (regexp sigmakee-predicate-regexp)
+          )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-type-definition-face nil)
+      '(3 'font-lock-builtin-face nil))
 
      ;; LOGICAL OPERATOR
      (list
