@@ -190,6 +190,7 @@
               (mapconcat 'identity (list "subclass"
                                          "instance"
                                          "subrelation"
+                                         "subProposition"
                                          "subAttribute")
                          "\\|")
               "\\)"
