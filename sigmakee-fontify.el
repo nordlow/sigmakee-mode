@@ -139,6 +139,10 @@
   (rx bow (group (+ digit)) eow)
   "SigmaKEE number regexp.")
 
+(defconst sigmakee-symbol-regexp
+  (rx bow (group (+ (in lower upper digit "-"))) eow)
+  "SigmaKEE symbol regexp.")
+
 (defconst sigmakee-font-lock-keywords
   (let ()
     (list
@@ -192,8 +196,10 @@
                             "contraryAttribute"
                             "exhaustiveDecomposition"
                             "disjoint"
+                            "disjointDecomposition"
                             "partition"
-                            "documentation"))
+                            "documentation"
+                            "lexicon"))
           (+ space)
           (regexp sigmakee-type-regexp)
           )
@@ -207,6 +213,19 @@
           (regexp sigmakee-type-regexp)
           (+ space)
           (regexp sigmakee-type-regexp)
+          )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-type-definition-face nil)
+      '(3 'font-lock-type-definition-face nil))
+
+     ;; FORMAT DEFINITION
+     (list
+      (rx bol "(" (group (| "format"
+                            "termFormat"))
+          (+ space)
+          (regexp sigmakee-type-regexp)
+          (+ space)
+          (regexp sigmakee-symbol-regexp)
           )
       '(1 'font-lock-builtin-ref-face nil)
       '(2 'font-lock-type-definition-face nil)
