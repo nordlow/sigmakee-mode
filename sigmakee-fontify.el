@@ -128,8 +128,12 @@
   "SigmaKEE type regexp.")
 
 (defconst sigmakee-variable-regexp
-  (rx (group "?" (+ (in "_" upper lower digit "-"))) eow)
+  (rx (group "?") (group (+ (in "_" upper lower digit "-"))) eow)
   "SigmaKEE variable regexp.")
+
+(defconst sigmakee-variable-list-regexp
+  (rx (group "@") (group (+ (in "_" upper lower digit "-"))) eow)
+  "SigmaKEE variable list regexp.")
 
 (defconst sigmakee-number-regexp
   (rx bow (group (+ digit)) eow)
@@ -204,13 +208,15 @@
      ;; VARIABLE
      (list
       sigmakee-variable-regexp
-      '(1 'font-lock-variable-ref-face nil)
+      '(1 'font-lock-private-variable-face nil)
+      '(2 'font-lock-variable-ref-face nil)
       )
 
      ;; VARIABLE-LIST
      (list
-      "\\(@[_[:upper:][:lower:][:digit:]-]+\\)\\b"
-      '(1 'font-lock-variable-name-face nil) ;TODO use `sigmakee-variable-list-face'
+      sigmakee-variable-list-regexp
+      '(1 'font-lock-private-variable-face nil)
+      '(2 'font-lock-variable-ref-face nil)
       )
 
      ;; NUMBER
