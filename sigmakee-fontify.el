@@ -16,7 +16,7 @@
 (defvar sigmakee-function-nri-and-class-face 'sigmakee-function-nri-and-class-face
   "Face to use for SigmaKEE keywords.")
 (defface sigmakee-function-nri-and-class-face
-    (if in-xemacs-p 
+    (if in-xemacs-p
 	'((((class color)) (:foreground "red"))
 	  (t (:foreground "gray" :bold t)))
       ;; in GNU, no bold, so just use color
@@ -61,7 +61,7 @@
 ;; (defvar sigmakee-property-face 'sigmakee-property-face
 ;;   "Face to use for SigmaKEE property names in property definitions.")
 ;; (defface sigmakee-property-face
-;;   (if in-xemacs-p  
+;;   (if in-xemacs-p
 ;;      '((((class color)) (:foreground "darkviolet" :bold t))
 ;;        (t (:italic t)))
 ;;     ;; in gnu, just magenta
@@ -109,104 +109,112 @@
 
 
 ;;;================================================================
-;;; these are the regexp matches for highlighting SigmaKEE 
+;;; these are the regexp matches for highlighting SigmaKEE
 
-(defconst sigmakee-font-lock-prefix "\\b")
 (defconst sigmakee-font-lock-keywords
   (let ()
-    (list 
+    (list
 
      ;; (list
      ;;  "^[^;]*\\(;.*\\)$" '(1 sigmakee-comment-face nil))
 
-     (list 
-      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
-      (concat "\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
-	      )
-      '(1 'font-lock-builtin-face nil)
+     (list
+      "\\b\\(and\\|or\\|not\\|exists\\|forall\\)\\b"
+      '(1 'font-lock-keyword-face nil)
       )
-     
+
      ;; KEYWORD
-     (list 
-      (concat sigmakee-font-lock-prefix "\\b\\("
+     ;; (list
+     ;;  (concat "\\b\\("
+     ;;          (mapconcat 'identity (list "instance"
+     ;;                                     "subclass"
+     ;;                                     "subrelation"
+     ;;                                     "subProposition"
+     ;;                                     "disjoint"
+     ;;                                     "disjointRelation"
+     ;;                                     "partition"
+     ;;                                     "subAttribute"
+     ;;                                     "valence"
+     ;;                                     "domain"
+     ;;                                     "domainSubclass"
+     ;;                                     "range"
+     ;;                                     "rangeSubclass"
+     ;;                                     "format"
+     ;;                                     "termFormat"
+     ;;                                     "equal"
+     ;;                                     "documentation")
+     ;;                     "\\|")
+     ;;          "\\)\\b" )
+     ;;  '(1 font-lock-keyword-face nil) )
+
+     ;; instance or subclass definition
+     (list
+      (concat "("
+              "\\b\\("
               (mapconcat 'identity (list "instance"
-                                         "subclass"
-                                         "subrelation"
-                                         "subProposition"
-                                         "disjoint"
-                                         "disjointRelation"
-                                         "partition"
-                                         "subAttribute"
-                                         "valence"
-                                         "domain"
-                                         "domainSubclass"
-                                         "range"
-                                         "rangeSubclass"
-                                         "format"
-                                         "termFormat"
-                                         "equal"
-                                         "documentation")
+                                         "subclass")
                          "\\|")
-              "\\)\\b" )
-      '(1 font-lock-keyword-face nil) )
+              "\\)"
+              (rx (+ space))
+              (rx (group (+ word)))
+              )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-function-name-face nil))
 
      ;; LOGICAL OPERATOR
-     (list 
-      ;; (concat "^\s*[^;][^\n\r]*[\s\n\r(]\\(=>\\|<=>\\)"
-      (concat "\\(=>\\|<=>\\)")
+     (list
+      "\\(=>\\|<=>\\)"
       '(1 sigmakee-logical-operator-face nil)
       )
 
      ;; CONSTANTS
-     ;; (list 
-     ;;  (concat sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
+     ;; (list
+     ;;  (concat "\\b\\([[:upper:]][[:lower:]]+Language\\)\\b" )
      ;;  '(1 font-lock-constant-face nil) )
 
      ;; VARIABLE
-     (list 
-      (concat "\\(\\?[_[:upper:][:lower:][:digit:]-]+\\)\\b"
-	      )
+     (list
+      "\\(\\?[_[:upper:][:lower:][:digit:]-]+\\)\\b"
       '(1 'font-lock-variable-ref-face nil)
       )
 
      ;; VARIABLE-LIST
-     (list 
-      (concat "\\(@[_[:upper:][:lower:][:digit:]-]+\\)\\b"
-	      )
+     (list
+      "\\(@[_[:upper:][:lower:][:digit:]-]+\\)\\b"
       '(1 'font-lock-variable-name-face nil)   ;TODO use `sigmakee-variable-list-face'
       )
 
      ;; FUNCTION
-     (list 
-      (concat
-       sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*Fn\\)\\b" )
-      '(1 'font-lock-function-name-face nil) )
+     (list
+      "\\b\\([[:upper:]][[:lower:]-][[:lower:][:upper:][:digit:]-]*Fn\\)\\b"
+      '(1 'font-lock-function-call-face nil) )
 
      ;; TYPE
-     (list 
-      (concat
-       sigmakee-font-lock-prefix "\\b\\([[:upper:]][[:lower:][:upper:][:digit:]-]*\\)\\b" )
+     (list
+      (rx bow
+          (group upper
+                 (+ (in lower upper digit "-")))
+          eow)
       '(1 font-lock-type-face nil) )
 
      ;; NUMBER
-     (list 
+     (list
       (concat
-       sigmakee-font-lock-prefix "\\b\\([[:digit:]]+\\)\\b" )
+       "\\b\\([[:digit:]]+\\)\\b" )
       '(1 'font-lock-number-face nil) )
 
      ;; FUNCTION CALL
-     (list 
-      (concat
-       sigmakee-font-lock-prefix "\\b\\([[:lower:]][[:lower:][:upper:][:digit:]_-]+\\)\\b" )
+     (list
+      "\\b\\([[:lower:]][[:lower:][:upper:][:digit:]_-]+\\)\\b"
       '(1 'font-lock-function-call-face nil) )
 
      ;; OTHER
-     (list 
+     (list
       (concat "\\(\\&\\%[_[:upper:][:lower:][:digit:]-]+\\)\\b"
 	      )
       '(1 sigmakee-other-face nil)
       )
-     
+
      ;; black for the def parts of PROPERTY DEFINITION
      ;; and of TransitiveProperty UnambiguousProperty UniqueProperty
 ;;; END OF LIST ELTS
