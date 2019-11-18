@@ -123,57 +123,53 @@
       '(1 'font-lock-keyword-face nil)
       )
 
-     ;; KEYWORD
-     ;; (list
-     ;;  (concat "\\b\\("
-     ;;          (mapconcat 'identity (list "instance"
-     ;;                                     "subclass"
-     ;;                                     "subrelation"
-     ;;                                     "subProposition"
-     ;;                                     "disjoint"
-     ;;                                     "disjointRelation"
-     ;;                                     "partition"
-     ;;                                     "subAttribute"
-     ;;                                     "valence"
-     ;;                                     "domain"
-     ;;                                     "domainSubclass"
-     ;;                                     "range"
-     ;;                                     "rangeSubclass"
-     ;;                                     "format"
-     ;;                                     "termFormat"
-     ;;                                     "equal"
-     ;;                                     "documentation")
-     ;;                     "\\|")
-     ;;          "\\)\\b" )
-     ;;  '(1 font-lock-keyword-face nil))
-
-     ;; instance or subclass definition of predicate
+     ;; PREDICATE DEFINITION
      (list
       (concat "("
               "\\b\\("
               (mapconcat 'identity (list "instance"
-                                         "subclass")
+                                         "subclass"
+                                         "subrelation"
+                                         "subAttribute")
                          "\\|")
               "\\)"
               (rx (+ space))
               (rx bow (group lower (+ (in lower upper digit "-"))) eow)
               )
       '(1 'font-lock-builtin-ref-face nil)
-      '(2 'font-lock-builtin-face nil)) ;TODO bold append
+      '(2 'font-lock-builtin-face nil))
 
-     ;; instance or subclass definition of function
+     ;; FUNCTION DEFINITION
      (list
       (concat "("
               "\\b\\("
               (mapconcat 'identity (list "instance"
-                                         "subclass")
+                                         "subclass"
+                                         "subrelation"
+                                         "subAttribute")
                          "\\|")
               "\\)"
               (rx (+ space))
               (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
               )
       '(1 'font-lock-builtin-ref-face nil)
-      '(2 'font-lock-function-name-face nil)) ;TODO bold append
+      '(2 'font-lock-function-name-face nil))
+
+     ;; TYPE DEFINITION
+     (list
+      (concat "("
+              "\\b\\("
+              (mapconcat 'identity (list "subclass"
+                                         "instance"
+                                         "subrelation"
+                                         "subAttribute")
+                         "\\|")
+              "\\)"
+              (rx (+ space))
+              (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+              )
+      '(1 'font-lock-builtin-ref-face nil)
+      '(2 'font-lock-type-definition-face nil))
 
      ;; LOGICAL OPERATOR
      (list
