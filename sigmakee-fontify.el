@@ -112,35 +112,35 @@
 ;;; these are the regexp matches for highlighting SigmaKEE
 
 (defconst sigmakee-keyword-regexp
-  (rx bow (group (| "and" "or" "not" "exists" "forall")) eow)
+  (rx symbol-start (group (| "and" "or" "not" "exists" "forall")) symbol-end)
   "SigmaKEE keyword regexp.")
 
 (defconst sigmakee-predicate-regexp
-  (rx bow (group lower (+ (in lower upper digit "-"))) eow)
+  (rx symbol-start (group lower (+ (in lower upper digit "-"))) symbol-end)
   "SigmaKEE predicate regexp.")
 
 (defconst sigmakee-function-regexp
-  (rx bow (group upper (+ (in lower upper digit "-")) "Fn") eow)
+  (rx symbol-start (group upper (+ (in lower upper digit "-")) "Fn") symbol-end)
   "SigmaKEE function regexp.")
 
 (defconst sigmakee-type-regexp
-  (rx bow (group upper (+ (in lower upper digit "-"))) eow)
+  (rx symbol-start (group upper (+ (in lower upper digit "-"))) symbol-end)
   "SigmaKEE type regexp.")
 
 (defconst sigmakee-variable-regexp
-  (rx (group "?") (group (+ (in "_" upper lower digit "-"))) eow)
+  (rx (group "?") (group (+ (in "_" upper lower digit "-"))) symbol-end)
   "SigmaKEE variable regexp.")
 
 (defconst sigmakee-variable-list-regexp
-  (rx (group "@") (group (+ (in "_" upper lower digit "-"))) eow)
+  (rx (group "@") (group (+ (in "_" upper lower digit "-"))) symbol-end)
   "SigmaKEE variable list regexp.")
 
 (defconst sigmakee-number-regexp
-  (rx bow (group (+ digit)) eow)
+  (rx symbol-start (group (+ digit)) symbol-end)
   "SigmaKEE number regexp.")
 
 (defconst sigmakee-symbol-regexp
-  (rx bow (group (+ (in lower upper digit "-"))) eow)
+  (rx symbol-start (group (+ (in lower upper digit "-"))) symbol-end)
   "SigmaKEE symbol regexp.")
 
 (defconst sigmakee-font-lock-keywords
