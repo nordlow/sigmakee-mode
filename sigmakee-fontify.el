@@ -111,8 +111,8 @@
 ;;;================================================================
 ;;; these are the regexp matches for highlighting SigmaKEE
 
-(defconst sigmakee-keyword-regexp
-  (rx symbol-start (group (| "and" "or" "not" "exists" "forall")) symbol-end)
+(defconst sigmakee-keyword-regexp       ;connectives
+  (rx symbol-start (group (| "and" "or" "not" "=>" "<=>" "exists" "forall")) symbol-end)
   "SigmaKEE keyword regexp.")
 
 (defconst sigmakee-predicate-regexp
@@ -258,10 +258,10 @@
       '(3 'font-lock-builtin-face nil))
 
      ;; LOGICAL OPERATOR
-     (list
-      (rx (group (| "=>" "<=>")))
-      '(1 sigmakee-logical-operator-face nil)
-      )
+     ;; (list
+     ;;  (rx (group (| "=>" "<=>")))
+     ;;  '(1 sigmakee-logical-operator-face nil)
+     ;;  )
 
      ;; VARIABLE
      (list
