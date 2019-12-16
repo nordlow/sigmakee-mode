@@ -116,23 +116,23 @@
   "SigmaKEE keyword regexp.")
 
 (defconst sigmakee-predicate-regexp
-  (rx symbol-start (group lower (+ (in lower upper digit "-"))) symbol-end)
+  (rx symbol-start (group lower (+ (in lower upper digit "-" "_"))) symbol-end)
   "SigmaKEE predicate regexp.")
 
 (defconst sigmakee-function-regexp
-  (rx symbol-start (group upper (+ (in lower upper digit "-")) "Fn") symbol-end)
+  (rx symbol-start (group upper (+ (in lower upper digit "-" "_")) "Fn") symbol-end)
   "SigmaKEE function regexp.")
 
 (defconst sigmakee-type-regexp
-  (rx symbol-start (group upper (+ (in lower upper digit "-"))) symbol-end)
+  (rx symbol-start (group upper (+ (in lower upper digit "-" "_"))) symbol-end)
   "SigmaKEE type regexp.")
 
 (defconst sigmakee-variable-regexp
-  (rx (group "?") (group (+ (in "_" upper lower digit "-"))) symbol-end)
+  (rx (group "?") (group (+ (in "_" upper lower digit "-" "_"))) symbol-end)
   "SigmaKEE variable regexp.")
 
 (defconst sigmakee-variable-list-regexp
-  (rx (group "@") (group (+ (in "_" upper lower digit "-"))) symbol-end)
+  (rx (group "@") (group (+ (in "_" upper lower digit "-" "_"))) symbol-end)
   "SigmaKEE variable list regexp.")
 
 (defconst sigmakee-number-regexp
@@ -140,7 +140,7 @@
   "SigmaKEE number regexp.")
 
 (defconst sigmakee-symbol-regexp
-  (rx symbol-start (group (+ (in lower upper digit "-"))) symbol-end)
+  (rx symbol-start (group (+ (in lower upper digit "-" "_"))) symbol-end)
   "SigmaKEE symbol regexp.")
 
 (defconst sigmakee-font-lock-keywords
